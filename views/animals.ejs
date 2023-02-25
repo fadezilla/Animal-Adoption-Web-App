@@ -46,14 +46,14 @@
               <%=animal.Size%>
             </span>
             <span class="col py-1 bg-light">
-              to calculate from database
+              <%=animal.Age%>
             </span>
             <span class="col py-1 bg-light">
               <%=animal.Adopted%>
             </span>
             <span class="col py-1 bg-light text-center">
-              <button class="btn-sm btn-warning" onclick="adoptAnimal(<%=animal.Id%>)">Adopt</button>
-              <button class="btn-sm btn-danger" onclick="deleteAnimal(<%=animal.Id%>)">Cancel Adoption</button>
+              <button class="btn-sm btn-warning" onclick="adoptAnimal(<%= animal.Id %>)">Adopt</button>
+              <button class="btn-sm btn-danger" onclick="cancelAdoption(<%= animal.Id %>)">Cancel Adoption</button>
             </span>
           </div>
           <% }); %>
@@ -61,6 +61,7 @@
 
       </div>
     </div>
+    
 </body>
 
 </html>

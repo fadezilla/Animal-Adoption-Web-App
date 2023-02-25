@@ -1,12 +1,18 @@
-module.exports = (sequelize, Sequelize) =>  {
+module.exports = (sequelize, Sequelize) => {
     const Temperament = sequelize.define('Temperament', {
-        Name: Sequelize.DataTypes.STRING
+        Id: {
+            type: Sequelize.DataTypes.INTEGER,
+            primaryKey: true,
+            autoIncrement: true
+        },
+        Name: Sequelize.DataTypes.STRING,
     },{
         timestamps: false
-      });
-    Temperament.associate = (models) =>{
-        Temperament.belongsToMany(models.Animal, { through: 'AnimalTemperaments' });
+    });
+
+    Temperament.associate = (models) => {
+        Temperament.belongsToMany(models.Animal, { through: 'AnimalTemperament' })
     };
 
     return Temperament;
-}
+};

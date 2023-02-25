@@ -27,8 +27,14 @@
                 <%=species.Name%>
               </span>
               <span class="col py-1 bg-light text-center">
-                <button class="btn-sm btn-warning" onclick="updateSpecies( <%=species.Id%>)">Update species</button>
-                <button class="btn-sm btn-danger" onclick="deleteSpecies( <%=species.Id%>)">Delete species</button>
+                <% if(isAdmin){%>
+                  <button class="btn-sm btn-warning" onclick="updateSpecies( <%=species.Id%>)">Update species</button>
+                  <button class="btn-sm btn-danger" onclick="deleteSpecies(<%=species.Id%>)">Delete species</button>
+                <%};%>
+                <% if(!isAdmin){%>
+                  <button class="btn-sm btn-warning" onclick="notAdmin()">Update species</button>
+                  <button class="btn-sm btn-danger" onclick="notAdmin()">Delete species</button>
+                <%};%>
               </span>
             </div>
             <% }); %>
@@ -37,7 +43,7 @@
               <div class="col-4"></div>
               <div class="col-4 text-center mt-2">
                 <form action="/species/add" method="POST">
-                  <button class="btn btn-success" id="btn-add-animal">Add New Species</button>
+                  <button class="btn btn-success" onclick="addSpecies()" id="btn-add-animal">Add New Species</button>
                 </form>
               </div>
               <div class="col-4"></div>
