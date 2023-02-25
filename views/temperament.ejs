@@ -28,8 +28,14 @@
                 <%=temp.Temper%>
               </span>
               <span class="col py-1 bg-light text-center">
-                <button class="btn-sm btn-warning" onclick="updateTemperament(<%=temp.Id%>)">Update temperament</button>
-                <button class="btn-sm btn-danger" onclick="deleteTemperament(<%=temp.Id%>)">Delete temperament</button>
+                <% if(isAdmin){%>
+                  <button class="btn-sm btn-warning" onclick="updateTemperament(<%=temp.Id%>)">Update temperament</button>
+                  <button class="btn-sm btn-danger" onclick="deleteTemperament(<%=temp.Id%>)">Delete temperament</button>
+                <%};%>
+                <% if(!isAdmin){%>
+                  <button class="btn-sm btn-warning" onclick="notAdmin()">Update temperament</button>
+                  <button class="btn-sm btn-danger" onclick="notAdmin()">Delete temperament</button>
+                <%};%>
               </span>
             </div>
             <% }); %>
@@ -37,9 +43,14 @@
             <div class="row">
               <div class="col-4"></div>
               <div class="col-4 text-center mt-2">
-                <form action="/temperament/add" method="POST">
-                  <button class="btn btn-success" id="btn-add-animal" >Add New Temperament</button>
-                </form>
+                <% if(isAdmin){%>
+                  <form action="/temperament/add" method="POST">
+                    <button class="btn btn-success" onclick="addTemperament()" id="btn-add-animal" >Add New Temperament</button>
+                  </form>
+                <%};%>
+                <% if(!isAdmin){%>
+                    <button class="btn btn-success" onclick="notAdmin()" id="btn-add-animal" >Add New Temperament</button>
+                <%};%>
               </div>
               <div class="col-4"></div>
             </div>

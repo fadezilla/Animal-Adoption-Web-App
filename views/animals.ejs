@@ -52,8 +52,18 @@
               <%=animal.Adopted%>
             </span>
             <span class="col py-1 bg-light text-center">
-              <button class="btn-sm btn-warning" onclick="adoptAnimal(<%= animal.Id %>)">Adopt</button>
-              <button class="btn-sm btn-danger" onclick="cancelAdoption(<%= animal.Id %>)">Cancel Adoption</button>
+              <% if(isAdmin){%>
+                <button class="btn-sm btn-danger" onclick="cancelAdoption(<%= animal.Id %>)">Cancel Adoption</button>
+              <%};%>
+              <% if(user){%>
+                <button class="btn-sm btn-warning" onclick="adoptAnimal(<%= animal.Id %>)">Adopt</button>
+              <%};%>
+              <% if(!isAdmin){%>
+                <button class="btn-sm btn-danger" onclick="notAdmin()">Cancel Adoption</button>
+              <%};%>
+              <% if(!user){%>
+                <button class="btn-sm btn-warning" onclick="notUser()">Adopt</button>
+              <%};%>
             </span>
           </div>
           <% }); %>

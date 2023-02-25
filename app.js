@@ -42,7 +42,7 @@ app.use(passport.authenticate('session'));
 app.use('/', indexRouter);
 app.use('/', authRouter);
 app.use('/', animalsRouter);
-app.use('/', speciesRouter);
+app.use('/species', speciesRouter);
 app.use('/temperament', temperamentRouter);
 
 // catch 404 and forward to error handler

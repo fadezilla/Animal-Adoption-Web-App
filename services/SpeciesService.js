@@ -11,11 +11,9 @@ class SpeciesService {
         })
     }
     async create(name) {
-        return this.Species.create(
-            {
-                Name: name
-            }
-        )
+        return this.Species.create({
+            Name: name
+        });
     }
     async hasDependantAnimals(speciesId){
         const animalCount = await db.Animal.count({

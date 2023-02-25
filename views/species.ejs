@@ -43,8 +43,13 @@
               <div class="col-4"></div>
               <div class="col-4 text-center mt-2">
                 <form action="/species/add" method="POST">
-                  <button class="btn btn-success" onclick="addSpecies()" id="btn-add-animal">Add New Species</button>
+                  <% if(isAdmin){%>
+                    <button class="btn btn-success" onclick="addSpecies()" id="btn-add-animal">Add New Species</button>
+                  <%};%>
                 </form>
+                <% if(!isAdmin){%>
+                  <button class="btn btn-success" onclick="notAdmin()" id="btn-add-animal">Add New Species</button>
+                <%};%>
               </div>
               <div class="col-4"></div>
             </div>

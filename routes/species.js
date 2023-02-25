@@ -7,7 +7,7 @@ var db = require("../models");
 var speciesService = new SpeciesService(db);
 var { checkIfAuthorized, isAdmin } = require('./authMiddlewares');
 
-router.get('/species', async function(req, res, next) {
+router.get('/', async function(req, res, next) {
     const species = await speciesService.getAll();
     const user = req.user;
     const isAdmin = req.user?.role === "admin";
@@ -17,17 +17,18 @@ router.get('/species', async function(req, res, next) {
       })), user, isAdmin });
   });
 
-router.post('/update', async function (req,res,next){
-    res.render("index",{user: null})
-})
-
-router.post('/add', jsonParser, async function(req, res, next) {
-    let Name = req.body.Name;
-    await speciesService.create(Name);
-    res.end()
+  router.post('/add', isAdmin, async (req, res) => {
+    const { name } = req.body;
+    try {
+      await speciesService.create(name);
+      res.sendStatus(200);
+    } catch (error) {
+      console.error(error);
+      res.status(500).send(error.message);
+    }
   });
 
-  router.post('/species/:speciesId', isAdmin, jsonParser, async (req, res) => {
+  router.put('/:speciesId', isAdmin, jsonParser, async (req, res) => {
     var id = req.params.speciesId;
     var name = req.body.name;
     try {
@@ -39,7 +40,7 @@ router.post('/add', jsonParser, async function(req, res, next) {
     }
   });
 
-  router.delete('/species/:speciesId', async (req, res) => {
+  router.delete('/:speciesId', isAdmin, async (req, res) => {
     const { speciesId } = req.params;
   
     try {

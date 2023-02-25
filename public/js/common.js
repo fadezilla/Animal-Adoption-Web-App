@@ -36,7 +36,7 @@ async function updateSpecies(speciesId){
     return;
   }
     fetch(`/species/${speciesId}`, {
-      method: 'POST',
+      method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name })
     })
@@ -65,35 +65,88 @@ function deleteSpecies(speciesId) {
     }
   }
 
-async function addSpecies(url){
-    let name = prompt("Provide species name");
-    await fetch(url, {
-        method: 'POST',
-        headers: {
-            'Content-type': 'application/json'
-        },
-        body: JSON.stringify({
-            Name: name,
-        })
-    }).then((response)=> {
-        if(response.ok){
-            const resData = 'Added a new species';
-            location.reload()
-            return Promise.resolve(resData);
-        }
-        return Promise.reject(response);
+  function addSpecies() {
+    event.preventDefault();
+    const name = prompt('Enter the name of the new species:');
+    if (!name) {
+      alert("Please enter a name for the new species.");
+      return;
+    }
+    fetch('/species/add', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name })
     })
-    .catch((response)=>{
-        alert(response.statusText);
-    });
-}
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(response.statusText);
+      }
+      location.reload();
+      alert('Added new species!');
+    })
+    .catch(error => console.error(error));
+  }
 
-function updateTemperament(id){
-    newTemperament = prompt("Update temperament")
-}
+  async function updateTemperament(temperamentId) {
+    const name = prompt('Enter a new name for the temperament:');
+    if (!name) {
+      alert("Please enter a name");
+      return;
+    }
+    fetch(`/temperament/${temperamentId}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name })
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(response.statusText);
+        }
+        location.reload()
+        alert('Updated temperament name!');
+    })
+    .catch(error => console.error(error));
+  }
 
-function deleteTemperament(id){
-}
+  async function deleteTemperament(temperamentId) {
+        if (confirm('Are you sure you want to delete this temperament?')) {
+            fetch(`/temperament/${temperamentId}`, {
+                method: 'DELETE',
+              })
+              .then(response => {
+                if(!response.ok){
+                    throw new Error(response.statusText);
+                }
+                location.reload()
+                alert('Deleted temperament!');
+              })
+              .catch(error => console.error(error));
+        }
+    }
+
+  async function addTemperament() {
+    event.preventDefault();
+    const name = prompt('Enter a name for the new temperament:');
+    if (!name) {
+      alert('Please enter a name!');
+      return;
+    }
+    try {
+      const response = await fetch('/temperament/add', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name })
+      });
+      if (!response.ok) {
+        throw new Error(response.statusText);
+      }
+      location.reload();
+      alert('Temperament added successfully!');
+    } catch (error) {
+      console.error(error);
+      alert('Failed to add temperament!');
+    }
+  }
 
 function calculate_age(dob) { 
     var diff_ms = Date.now() - dob.getTime();
@@ -103,5 +156,8 @@ function calculate_age(dob) {
 }
 
 function notAdmin(){
-    alert("Must be an admin to modify species data")
+    alert("Must be an admin to modify this data!")
+}
+function notUser(){
+    alert("Must be logged in to do this.")
 }
