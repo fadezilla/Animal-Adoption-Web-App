@@ -28,9 +28,10 @@ router.get('/animals', async function(req, res, next) {
 
 router.post('/adopt/:animalId', checkIfAuthorized, async (req, res) => {
   const animalId = req.params.animalId;
+  const userId = req.body.userId;
 
   try {
-    await animalService.adoptAnimal(animalId);
+    await animalService.adoptAnimal(animalId, userId);
     res.sendStatus(200);
   } catch (error) {
     console.error(error);

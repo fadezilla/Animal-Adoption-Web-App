@@ -43,7 +43,7 @@ class AnimalService {
         ],
         });
     }
-    async adoptAnimal(animalId) {
+    async adoptAnimal(animalId, userId) {
       const animal = await this.Animal.findOne({ where: { id: animalId } });
   
       if (!animal) {
@@ -54,7 +54,8 @@ class AnimalService {
       }
   
       animal.Adopted = true;
-  
+      animal.UserId = userId;
+
       await animal.save();
   
       console.log(`Adopted animal with ID ${animalId}`);

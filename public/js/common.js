@@ -1,4 +1,12 @@
+function getUserId(req) {
+    const userId = req.session.userId;
+    if (!userId) {
+      throw new Error('User ID not found in session');
+    }
+    return userId;
+  }
 function adoptAnimal(animalId) {
+    const userId = getUserId();
     fetch(`/adopt/${animalId}`, {
       method: 'POST'
     })
@@ -159,5 +167,5 @@ function notAdmin(){
     alert("Must be an admin to modify this data!")
 }
 function notUser(){
-    alert("Must be logged in to do this.")
+    alert("Must be logged in to do")
 }
