@@ -16,7 +16,7 @@ passport.use(new LocalStrategy(function verify(username, password, cb) {
 
 passport.serializeUser(function(user, cb) {
   process.nextTick(function() {
-    cb(null, { id: user.id, username: user.Username, role: user.Role });
+    cb(null, { id: user.Id, username: user.Username, role: user.Role });
   });
 });
 
@@ -37,7 +37,10 @@ router.post('/login/password', passport.authenticate('local', {
   successReturnToOrRedirect: '/',
   failureRedirect: '/login',
   failureMessage: true
-}));
+}), (req, res, next)=> {
+  req.session.userId = req.user.id;
+  res.redirect('/');
+});
 
 router.get('/logout', function(req, res, next) {
   req.logout(function(err) {

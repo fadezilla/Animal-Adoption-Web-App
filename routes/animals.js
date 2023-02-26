@@ -7,7 +7,7 @@ var UserService = require("../services/UserService");
 var db = require("../models");
 var animalService = new AnimalService(db);
 const userService = new UserService(db);
-var { canSeeUserDetails, canSeeUserList, checkIfAuthorized, isAdmin } = require("./authMiddlewares");
+var {isAdmin } = require("./authMiddlewares");
 
 router.get('/animals', async function(req, res, next) {
   const animals = await animalService.get();
@@ -26,20 +26,20 @@ router.get('/animals', async function(req, res, next) {
   })), user, isAdmin });
 });
 
-router.post('/adopt/:animalId', checkIfAuthorized, async (req, res) => {
-  const animalId = req.params.animalId;
-  const userId = req.body.userId;
-
+router.post("/adopt/:animalId", async (req, res) => {
+  console.log('POST USER: ', req.user)
   try {
+    const animalId = req.params.animalId;
+    const userId = req.user.id; // get the current user ID from the session
     await animalService.adoptAnimal(animalId, userId);
-    res.sendStatus(200);
+    res.redirect("/animals");
   } catch (error) {
-    console.error(error);
-    res.status(500).send(error.message);
+    console.log(error);
+    res.status(500).send("Failed to adopt animal");
   }
 });
 
-router.post('/cancelAdoption/:animalId', isAdmin, async (req, res) => {
+router.delete('/cancelAdoption/:animalId', isAdmin, async (req, res) => {
   const animalId = req.params.animalId;
 
   try {

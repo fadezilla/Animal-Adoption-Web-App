@@ -53,10 +53,10 @@
             </span>
             <span class="col py-1 bg-light text-center">
               <% if(isAdmin){%>
-                <button class="btn-sm btn-danger" onclick="cancelAdoption(<%= animal.Id %>)">Cancel Adoption</button>
+                <button class="btn-sm btn-danger" onclick="cancelAdoption(<%= animal.Id %>, <%=user.id%>)">Cancel Adoption</button>
               <%};%>
               <% if(user){%>
-                <button class="btn-sm btn-warning" onclick="adoptAnimal(<%= animal.Id %>)">Adopt</button>
+                <button class="btn-sm btn-warning" onclick="console.log('animalId:', <%= animal.Id %>, 'userId:', <%= user.id %>);adoptAnimal(<%= animal.Id %>, <%=user.id%>)">Adopt</button>
               <%};%>
               <% if(!isAdmin){%>
                 <button class="btn-sm btn-danger" onclick="notAdmin()">Cancel Adoption</button>

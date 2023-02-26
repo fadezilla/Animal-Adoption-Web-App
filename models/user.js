@@ -24,5 +24,9 @@ module.exports = (sequelize, Sequelize) => {
       timestamps: false
   });
 
+  User.associate = (models) => {
+    User.belongsToMany(models.Animal, { through: models.Adoption });
+};
+
   return User;
 };

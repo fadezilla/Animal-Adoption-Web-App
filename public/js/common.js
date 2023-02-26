@@ -1,14 +1,12 @@
-function getUserId(req) {
-    const userId = req.session.userId;
-    if (!userId) {
-      throw new Error('User ID not found in session');
-    }
-    return userId;
-  }
-function adoptAnimal(animalId) {
-    const userId = getUserId();
+function adoptAnimal(animalId, userId) {
+  console.log("animalIdFetch:", animalId)
+  console.log("UserlIdFetch:", userId)
     fetch(`/adopt/${animalId}`, {
-      method: 'POST'
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json'
+      },
+      body: JSON.stringify({ animalId: animalId, userId: userId })
     })
     .then(response => {
       if (!response.ok) {
@@ -22,7 +20,7 @@ function adoptAnimal(animalId) {
   
   function cancelAdoption(animalId) {
     fetch(`/cancelAdoption/${animalId}`, {
-      method: 'POST'
+      method: 'DELETE'
     })
     .then(response => {
       if (!response.ok) {
@@ -33,9 +31,6 @@ function adoptAnimal(animalId) {
     })
     .catch(error => console.error(error));
   }
-
-function deleteAnimal(id){
-}
 
 async function updateSpecies(speciesId){
     const name = prompt('Enter a new name for the species:');
@@ -167,5 +162,5 @@ function notAdmin(){
     alert("Must be an admin to modify this data!")
 }
 function notUser(){
-    alert("Must be logged in to do")
+    alert("Must be logged in to do this.")
 }
