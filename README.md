@@ -60,7 +60,7 @@ This project is built using Node.js version [insert version].
 # DATABASE Creation Query
 CREATE DATABASE adoptiondb;
 
-# DATAINSERTS I USED IN THIS PROJECT
+# DATA INSERTS I USED IN THIS PROJECT
 INSERT INTO Species (Name)
 VALUES
 ('Dwarf Hamster'),
@@ -119,11 +119,11 @@ VALUES
 (8, 1, NOW());
 
 
-# DATABASEACCESS 
+# DATABASE ACCESS 
 CREATE USER 'dabcaowner'@'localhost' IDENTIFIED BY 'dabca1234';
 GRANT ALL PRIVILEGES ON *.* TO 'dabcaowner'@'localhost' WITH GRANT OPTION;
 
-# DATABASEQUERIES I USED IN THIS PROJECT
+# DATABASE QUERIES I USED IN THIS PROJECT
 SELECT Name FROM (
   SELECT Name, COUNT(*) as count
   FROM Animals
