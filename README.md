@@ -1,20 +1,66 @@
-# DAB - Course Assignment 1
-# Application Installation and Usage Instructions
-"Npm install" in terminal and it will install all dependencies.
+# Animal Adoption Web Application
 
-# Environment Variables
-you need a database called adoptiondb, after you have that and run "npm start" it will create all the necesarry tables.
+Welcome to the Animal Adoption Web Application! This project allows users to view and adopt animals from a provided list of animals. The application utilizes Node.js with Express.js for the backend and MySQL for database management.
 
-# Additional Libraries/Packages
-none
+## Technologies Used
 
-# NodeJS Version Used
-v18.13.0
+- Node.js
+- Express.js
+- Sequelize
+- MySQL
+- PassportJS
+- EJS (Embedded JavaScript) template engine
+- Bootstrap
 
-# DATABASE
+## Installation
+
+1. Clone the repository to your local machine.
+2. Navigate to the project directory.
+3. Run `npm install` to install the required dependencies.
+4. Set up a MySQL database and configure the database connection in the `.env` file.
+5. Manually run the SQL scripts provided below to create the necessary database, tables, and insert initial data.
+6. Ensure environment variables are correctly set up, including the database credentials.
+
+## Usage
+
+1. Start the server by running `npm start`.
+2. Open your web browser and navigate to the specified URL (e.g., `http://localhost:3000`).
+3. Sign in using the provided credentials or sign up if you are a new user.
+4. Explore the different pages using the navbar:
+   - Home: Landing page
+   - Animals: View all available animals and adopt them
+   - Species (Admin only): Update species information
+   - Temperament (Admin only): Update temperament information
+   - Sign in/Sign up: Authentication pages
+5. Adopt animals by clicking on the "Adopt" button next to each animal on the Animals page.
+6. Admin users can update species and temperament information on the respective pages.
+
+## Environment Variables
+
+Make sure to set up the following environment variables in a `.env` file:
+
+- `DB_HOST`: Hostname of the MySQL database
+- `DB_USER`: MySQL database username
+- `DB_PASSWORD`: MySQL database password
+- `DB_NAME`: Name of the MySQL database
+
+## Additional Libraries/Packages Used
+
+- Sequelize: For database management and queries
+- PassportJS: For user authentication
+- Express-session: For managing user sessions
+- dotenv: For loading environment variables from a `.env` file
+
+## Node.js Version
+
+This project is built using Node.js version [insert version].
+
+## Database Creation and Data Insertion SQL Script
+
+# DATABASE Creation Query
 CREATE DATABASE adoptiondb;
 
-# DATAINSERTS
+# DATAINSERTS I USED IN THIS PROJECT
 INSERT INTO Species (Name)
 VALUES
 ('Dwarf Hamster'),
@@ -73,11 +119,11 @@ VALUES
 (8, 1, NOW());
 
 
-# DATABASEACCESS
+# DATABASEACCESS 
 CREATE USER 'dabcaowner'@'localhost' IDENTIFIED BY 'dabca1234';
 GRANT ALL PRIVILEGES ON *.* TO 'dabcaowner'@'localhost' WITH GRANT OPTION;
 
-# DATABASEQUERIES
+# DATABASEQUERIES I USED IN THIS PROJECT
 SELECT Name FROM (
   SELECT Name, COUNT(*) as count
   FROM Animals
